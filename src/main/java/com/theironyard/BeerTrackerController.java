@@ -66,9 +66,11 @@ public class BeerTrackerController {
         return "home";
     }
     @RequestMapping("/add-beer")
-    public String addBeer(String beername, String beertype, Integer beercalories, HttpServletRequest request){
-        HttpSession session = request.getSession();
+    public String addBeer(String beername, String beertype, int beercalories, HttpSession session) throws Exception {
         String username = (String)session.getAttribute("username");
+        if (username == null){
+            throw new Exception("Not Logged in");
+        }
         User user = users.findOneByName(username);
         Beer beer = new Beer();
         beer.name = beername;
@@ -81,7 +83,11 @@ public class BeerTrackerController {
         return "redirect:/";
     }
     @RequestMapping ("/edit-beer")
-    public String editBeer (Integer id, String name, String type){
+    public String editBeer (int id, String name, String type, HttpSession session) throws Exception {
+        if (session.getAttribute("username")==null){
+            throw new Exception("Not Logged in");
+        }
+
         Beer beer = beers.findOne(id);
         beer.name = name;
         beer.type = type;
@@ -89,8 +95,7 @@ public class BeerTrackerController {
         return "redirect:/";
     }
     @RequestMapping("/login")
-    public String login (String username, String password, HttpServletRequest request) throws Exception {
-        HttpSession session = request.getSession();
+    public String login (String username, String password, HttpSession session) throws Exception {
         session.setAttribute("username", username);
 
         User user = users.findOneByName(username);
@@ -106,8 +111,7 @@ public class BeerTrackerController {
     }
 
     @RequestMapping("logout")
-    public String logout(HttpServletRequest request){
-        HttpSession session = request.getSession();
+    public String logout(HttpSession session){
         session.invalidate();
         return "redirect:/";
     }
