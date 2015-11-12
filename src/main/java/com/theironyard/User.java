@@ -14,6 +14,8 @@ public class User {                 //USER IS ACTUALLY A KEYWORD SO YOU CAN'T MA
     Integer id;
 
     String name;
+    String password;
+
     @OneToMany(mappedBy = "user") // this is the name of the field in the BEER class
     List<Beer> beers;
 }
