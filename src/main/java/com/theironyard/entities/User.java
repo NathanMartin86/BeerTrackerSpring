@@ -1,4 +1,6 @@
-package com.theironyard;
+package com.theironyard.entities;
+
+import com.theironyard.entities.Beer;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,9 +15,9 @@ public class User {                 //USER IS ACTUALLY A KEYWORD SO YOU CAN'T MA
     @GeneratedValue
     Integer id;
 
-    String name;
-    String password;
+    public String name;
+    public String password;
 
     @OneToMany(mappedBy = "user") // this is the name of the field in the BEER class
-    List<Beer> beers;
+    public List<Beer> beers;
 }

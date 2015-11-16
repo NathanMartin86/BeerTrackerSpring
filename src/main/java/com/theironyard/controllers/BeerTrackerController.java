@@ -1,5 +1,10 @@
-package com.theironyard;
+package com.theironyard.controllers;
 
+import com.theironyard.entities.Beer;
+import com.theironyard.entities.User;
+import com.theironyard.services.BeerRepository;
+import com.theironyard.services.UserRepository;
+import com.theironyard.util.PasswordHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -99,11 +104,13 @@ public class BeerTrackerController {
         session.setAttribute("username", username);
 
         User user = users.findOneByName(username);
+
         if (user == null) {
             user = new User();
             user.name = username;
             user.password = PasswordHash.createHash(password);
             users.save(user);
+
         } else if (!PasswordHash.validatePassword(password, user.password)) {
             throw new Exception("Wrong Password");
         }
