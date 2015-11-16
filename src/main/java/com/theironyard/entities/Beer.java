@@ -1,9 +1,5 @@
 package com.theironyard.entities;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * Created by macbookair on 11/10/15.
@@ -12,10 +8,16 @@ import javax.persistence.ManyToOne;
 public class Beer {
     @Id
     @GeneratedValue
-    Integer id;
+    @Column(nullable = false) // this sets it so that it can't be null, ever.
+    int id;                   // keeps jink data from getting in your database.
 
+    @Column(nullable = false)
     public String name;
+
+    @Column(nullable = false)
     public String type;
+
+    @Column(nullable = false)
     public Integer calories;
 
     @ManyToOne

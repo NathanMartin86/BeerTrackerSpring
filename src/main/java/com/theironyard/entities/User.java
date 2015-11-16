@@ -15,7 +15,10 @@ public class User {                 //USER IS ACTUALLY A KEYWORD SO YOU CAN'T MA
     @GeneratedValue
     Integer id;
 
+    @Column(nullable = false)
     public String name;
+
+    @Column(nullable = false)
     public String password;
 
     @OneToMany(mappedBy = "user") // this is the name of the field in the BEER class
